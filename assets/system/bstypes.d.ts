@@ -1,3 +1,7 @@
+/**
+ * @module
+ * The EcmaDOM namespace
+ */
 declare namespace EcmaDOM {
 	/**
 	 * Accessibility testing class

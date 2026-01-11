@@ -13,7 +13,7 @@ const VAR_REGEX = /var\(([^\)]*)\)/g;
  *
  * @example
  * ```js
- * import { EcmaDOM } from "./mod.ts";
+ * import { EcmaDOM } from "jsr:@hypoke/ecmadom";
  *
  * const parser = new EcmaDOM.HTMLParser(`
  * <html>
@@ -60,7 +60,7 @@ const VAR_REGEX = /var\(([^\)]*)\)/g;
  *
  * parser.evaluateProperties();
  *
- * console.log(parser.document.querySelector("#test2").style.getPropertyValue("background"));
+ * console.log(parser.document.querySelector("#test").style.getPropertyValue("height"));
  * ```
  */
 export class HTMLParser {

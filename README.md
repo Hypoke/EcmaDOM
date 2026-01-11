@@ -9,7 +9,7 @@ EcmaDOM is an ES6 HTML/CSS DOM manipulation library designed for automated testi
 To get started quickly, you can import all classes directly from `mod.js`.
 
 ```javascript
-import { EcmaDOM } from "./mod.ts";
+import { EcmaDOM } from "jsr:@hypoke/ecmadom";
 
 const parser = new EcmaDOM.HTMLParser(`
 <html>
@@ -43,7 +43,7 @@ parser.applyCSS(`
 
 parser.evaluateProperties();
 
-console.log(parser.document.querySelector("#test2").style.getPropertyValue("background"));
+console.log(parser.document.querySelector("#test").style.getPropertyValue("height"));
 ```
 
 ## Supported Environments
