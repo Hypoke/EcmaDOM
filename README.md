@@ -9,9 +9,9 @@ EcmaDOM is an ES6 HTML/CSS DOM manipulation library designed for automated testi
 To get started quickly, you can import all classes directly from `mod.js`.
 
 ```javascript
-import { HTMLParser } from "./mod.ts";
+import { EcmaDOM } from "./mod.ts";
 
-const parser = new HTMLParser(`
+const parser = new EcmaDOM.HTMLParser(`
 <html>
 	<body>
 		<main id="test">

@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { CSSParser } from "../mod.js";
+import { EcmaDOM } from "../mod.js";
 import MapRuntime from "./MapRuntime.js";
 MapRuntime();
 
@@ -11,7 +11,7 @@ test("minify", () => {
 		}
 	`;
 	const expectedMinified = `#test {background-color: red;}`;
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const minified = parser.minify(code);
 	assertEquals(minified, expectedMinified);
 });
@@ -21,7 +21,7 @@ test("remove nested structure", () => {
 	const code = `#test {#test1 {background-color: red;}}`;
 	const expectedMinified = `#test #test1 {background-color: red;}`;
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const unnested = parser.parseBlocks(code);
 	const minified = parser.minify(unnested);
 	assertEquals(minified, expectedMinified);
@@ -31,7 +31,7 @@ test("replace & symbol after selector structure", () => {
 	const code = `#test {#test1 & {background-color: red;}}`;
 	const expectedMinified = `#test1 #test {background-color: red;}`;
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const unnested = parser.parseBlocks(code);
 	const minified = parser.minify(unnested);
 	assertEquals(minified, expectedMinified);
@@ -41,7 +41,7 @@ test("replace & symbol before selector structure", () => {
 	const code = `#test {&#test1 {background-color: red;}}`;
 	const expectedMinified = `#test#test1 {background-color: red;}`;
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const unnested = parser.parseBlocks(code);
 	const minified = parser.minify(unnested);
 	assertEquals(minified, expectedMinified);
@@ -60,7 +60,7 @@ test("parse", () => {
 		properties: structurePropertiesMap,
 	});
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const parsedMap = parser.parse(code);
 	assertEquals(parsedMap, structureMap);
 });
@@ -74,7 +74,7 @@ test("selector specifity", () => {
 		type: 1,
 	};
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const parsedSelectorSpecifity = parser.calculateSelectorSpecifity(code);
 	assertEquals(parsedSelectorSpecifity, selectorSpecifity);
 });
@@ -87,7 +87,7 @@ test("none selector specifity", () => {
 		type: 0,
 	};
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const parsedSelectorSpecifity = parser.calculateSelectorSpecifity(code);
 	assertEquals(parsedSelectorSpecifity, selectorSpecifity);
 });
@@ -168,7 +168,7 @@ test("sort map", () => {
 		},
 	});
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const parsedSelectorSpecifity = parser.sortMap(selectorSpecifitiesArray);
 	assertEquals(parsedSelectorSpecifity, expectedSelectorSpecifitiesArray);
 });
@@ -191,7 +191,7 @@ test("run", () => {
 		properties: structurePropertiesMap,
 	});
 
-	const parser = new CSSParser();
+	const parser = new EcmaDOM.CSSParser();
 	const parsed = parser.run(code);
 	assertEquals(parsed, structureMap);
 });

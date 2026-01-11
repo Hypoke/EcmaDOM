@@ -13,9 +13,9 @@ const VAR_REGEX = /var\(([^\)]*)\)/g;
  *
  * @example
  * ```js
- * import { HTMLParser } from "./mod.ts";
+ * import { EcmaDOM } from "./mod.ts";
  *
- * const parser = new HTMLParser(`
+ * const parser = new EcmaDOM.HTMLParser(`
  * <html>
  * 	<body>
  * 		<main id="test">
