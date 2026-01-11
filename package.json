@@ -1,0 +1,8 @@
+{
+	"dependencies": {
+		"@b-fuze/deno-dom": "npm:@jsr/b-fuze__deno-dom@^0.1.56",
+		"@std/assert": "npm:@jsr/std__assert@^1.0.16",
+		"axe-core": "^4.11.1",
+		"opentype.js": "^1.3.4"
+	}
+}

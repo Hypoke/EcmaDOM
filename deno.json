@@ -1,0 +1,32 @@
+{
+	"name": "@hypoke/ecmadom",
+	"version": "1.0.0",
+	"license": "Fair",
+	"exports": "./mod.js",
+	"imports": {
+		"@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom",
+		"@std/assert": "jsr:@std/assert",
+		"opentype.js": "npm:opentype.js",
+		"axe-core": "npm:axe-core"
+	},
+	"nodeModulesDir": "auto",
+	"lock": {
+		"path": "./assets/system/deno.lock",
+		"frozen": true
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 120,
+		"indentWidth": 2,
+		"semiColons": true,
+		"singleQuote": false,
+		"proseWrap": "preserve"
+	},
+	"lint": {
+		"include": ["src/", "tests/", "mod.ts"],
+		"rules": {
+			"tags": ["recommended"],
+			"exclude": ["no-window"]
+		}
+	}
+}
