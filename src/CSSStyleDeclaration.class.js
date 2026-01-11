@@ -51,7 +51,7 @@ export class CSSStyleDeclaration {
 	 * @param {string} property Name of the property
 	 * @param {(string|number)} value Value of the property
 	 * @param {string} _priority
-	 * @returns
+	 * @returns {boolean}
 	 */
 	setProperty(property, value, _priority = "") {
 		if (this.computed.set(property, value) instanceof Map) {
@@ -62,7 +62,7 @@ export class CSSStyleDeclaration {
 
 	/**
 	 * @param {string} property Name of the property
-	 * @returns
+	 * @returns {boolean}
 	 */
 	removeProperty(property) {
 		return this.computed.delete(property);
