@@ -1,9 +1,9 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@b-fuze/deno-dom@*": "0.1.56",
+    "jsr:@b-fuze/deno-dom@~0.1.56": "0.1.56",
     "jsr:@denosaurs/plug@1.1.0": "1.1.0",
-    "jsr:@std/assert@*": "1.0.16",
+    "jsr:@std/assert@^1.0.16": "1.0.16",
     "jsr:@std/encoding@1": "1.0.10",
     "jsr:@std/fmt@1": "1.0.8",
     "jsr:@std/fs@1": "1.0.19",
@@ -14,9 +14,8 @@
     "jsr:@std/path@^1.1.1": "1.1.2",
     "npm:@jsr/b-fuze__deno-dom@~0.1.56": "0.1.56",
     "npm:@jsr/std__assert@^1.0.16": "1.0.16",
-    "npm:axe-core@*": "4.11.1",
+    "npm:axe-core@4.11.1": "4.11.1",
     "npm:axe-core@^4.11.1": "4.11.1",
-    "npm:opentype.js@*": "1.3.4",
     "npm:opentype.js@^1.3.4": "1.3.4"
   },
   "jsr": {
@@ -136,10 +135,10 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@b-fuze/deno-dom@*",
-      "jsr:@std/assert@*",
-      "npm:axe-core@*",
-      "npm:opentype.js@*"
+      "jsr:@b-fuze/deno-dom@~0.1.56",
+      "jsr:@std/assert@^1.0.16",
+      "npm:axe-core@4.11.1",
+      "npm:opentype.js@^1.3.4"
     ],
     "packageJson": {
       "dependencies": [
