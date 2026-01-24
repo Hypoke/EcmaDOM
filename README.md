@@ -66,7 +66,7 @@ console.log(parser.document.querySelector("#test").style.getPropertyValue("heigh
 | JavaScript Support              | 📝           |
 | Style and Script Tag Resolution | 📝           |
 | CSS Import Resolution           | 📝           |
-| CSS @ Tags                      | 📝           |
+| CSS @ Tags                      | 🚧           |
 
 ## Licensing
 

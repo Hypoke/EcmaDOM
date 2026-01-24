@@ -79,10 +79,11 @@ export class HTMLParser {
 	 *
 	 * @param {string} css The plain css text
 	 */
-	applyCSS(css) {
+	async applyCSS(css) {
 		const cssParser = new CSSParser();
-		cssParser.run(css);
-		for (const [selector, rule] of cssParser.map) {
+		await cssParser.run(css);
+		for (const [_id, rule] of cssParser.map) {
+			const selector = rule.selectors.code;
 			const elements = this.document.querySelectorAll(selector);
 			for (const element of elements) {
 				if (!element.style) {
