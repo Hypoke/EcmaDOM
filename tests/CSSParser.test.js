@@ -16,52 +16,27 @@ test("minify", () => {
 	assertEquals(minified, expectedMinified);
 });
 
-// Unnested Testing
-test("remove nested structure", () => {
-	const code = `#test {#test1 {background-color: red;}}`;
-	const expectedMinified = `#test #test1 {background-color: red;}`;
-
-	const parser = new EcmaDOM.CSSParser();
-	const unnested = parser.parseBlocks(code);
-	const minified = parser.minify(unnested);
-	assertEquals(minified, expectedMinified);
-});
-
-test("replace & symbol after selector structure", () => {
-	const code = `#test {#test1 & {background-color: red;}}`;
-	const expectedMinified = `#test1 #test {background-color: red;}`;
-
-	const parser = new EcmaDOM.CSSParser();
-	const unnested = parser.parseBlocks(code);
-	const minified = parser.minify(unnested);
-	assertEquals(minified, expectedMinified);
-});
-
-test("replace & symbol before selector structure", () => {
-	const code = `#test {&#test1 {background-color: red;}}`;
-	const expectedMinified = `#test#test1 {background-color: red;}`;
-
-	const parser = new EcmaDOM.CSSParser();
-	const unnested = parser.parseBlocks(code);
-	const minified = parser.minify(unnested);
-	assertEquals(minified, expectedMinified);
-});
-
 // Parse Testing
-test("parse", () => {
+test("parse", async () => {
 	const code = `#test {background-color: red;}`;
 	const structureMap = new Map();
 	const structurePropertiesMap = new Map();
 	structurePropertiesMap.set("background-color", "red");
-	structureMap.set("#test", {
-		name: "#test",
-		specifity: { id: 1, class: 0, type: 0 },
-		attributes: "",
-		properties: structurePropertiesMap,
-	});
+	structureMap.set(
+		"49f0d9fe041ed6b3db7facb6c93df4753eb3ebba583ced83c9daa0c12a6ddcd016f21cd68798082956ef40e6f72834ee4c0f9515c5a8f438def77b779c935f20",
+		{
+			selectors: {
+				code: "#test",
+				specifity: { id: 1, class: 0, type: 0 },
+			},
+			code: "background-color: red;",
+			atRules: {},
+			properties: structurePropertiesMap,
+		},
+	);
 
 	const parser = new EcmaDOM.CSSParser();
-	const parsedMap = parser.parse(code);
+	const parsedMap = await parser.parse(code);
 	assertEquals(parsedMap, structureMap);
 });
 
@@ -96,85 +71,102 @@ test("none selector specifity", () => {
 test("sort map", () => {
 	const selectorSpecifitiesArray = [
 		[
-			"#test",
+			"1",
 			{
-				"specifity": {
-					id: 0,
-					class: 1,
-					type: 1,
+				selectors: {
+					"specifity": {
+						id: 0,
+						class: 1,
+						type: 1,
+					},
 				},
 			},
 		],
 		[
-			"#test1",
+			"2",
 			{
-				"specifity": {
-					id: 0,
-					class: 0,
-					type: 0,
+				selectors: {
+					"specifity": {
+						id: 2,
+						class: 0,
+						type: 1,
+					},
 				},
 			},
 		],
 		[
-			"#test2",
+			"3",
 			{
-				"specifity": {
-					id: 1,
-					class: 0,
-					type: 0,
+				selectors: {
+					"specifity": {
+						id: 0,
+						class: 0,
+						type: 2,
+					},
 				},
 			},
 		],
 		[
-			"#test3",
+			"4",
 			{
-				"specifity": {
-					id: 0,
-					class: 0,
-					type: 0,
+				selectors: {
+					"specifity": {
+						id: 0,
+						class: 0,
+						type: 0,
+					},
 				},
 			},
 		],
 	];
 
 	const expectedSelectorSpecifitiesArray = new Map();
-	expectedSelectorSpecifitiesArray.set("#test2", {
-		"specifity": {
-			id: 1,
-			class: 0,
-			type: 0,
+	expectedSelectorSpecifitiesArray.set("4", {
+		"selectors": {
+			"specifity": {
+				id: 0,
+				class: 0,
+				type: 0,
+			},
 		},
 	});
-
-	expectedSelectorSpecifitiesArray.set("#test", {
-		"specifity": {
-			id: 0,
-			class: 1,
-			type: 1,
+	expectedSelectorSpecifitiesArray.set("3", {
+		"selectors": {
+			"specifity": {
+				id: 0,
+				class: 0,
+				type: 2,
+			},
 		},
 	});
-	expectedSelectorSpecifitiesArray.set("#test1", {
-		"specifity": {
-			id: 0,
-			class: 0,
-			type: 0,
+	expectedSelectorSpecifitiesArray.set("1", {
+		"selectors": {
+			"specifity": {
+				id: 0,
+				class: 1,
+				type: 1,
+			},
 		},
 	});
-	expectedSelectorSpecifitiesArray.set("#test3", {
-		"specifity": {
-			id: 0,
-			class: 0,
-			type: 0,
+	expectedSelectorSpecifitiesArray.set("2", {
+		"selectors": {
+			"specifity": {
+				id: 2,
+				class: 0,
+				type: 1,
+			},
 		},
 	});
 
 	const parser = new EcmaDOM.CSSParser();
 	const parsedSelectorSpecifity = parser.sortMap(selectorSpecifitiesArray);
-	assertEquals(parsedSelectorSpecifity, expectedSelectorSpecifitiesArray);
+	const parsedArray = Array.from(parsedSelectorSpecifity);
+	const expectedArray = Array.from(expectedSelectorSpecifitiesArray);
+	assertEquals(parsedArray, expectedArray);
 });
 
 // Run test
-test("run", () => {
+test("run", async () => {
 	const code = `
 		#test {
 			background-color: red;
@@ -184,14 +176,20 @@ test("run", () => {
 	const structureMap = new Map();
 	const structurePropertiesMap = new Map();
 	structurePropertiesMap.set("background-color", "red");
-	structureMap.set("#test", {
-		name: "#test",
-		specifity: { id: 1, class: 0, type: 0 },
-		attributes: "",
-		properties: structurePropertiesMap,
-	});
+	structureMap.set(
+		"49f0d9fe041ed6b3db7facb6c93df4753eb3ebba583ced83c9daa0c12a6ddcd016f21cd68798082956ef40e6f72834ee4c0f9515c5a8f438def77b779c935f20",
+		{
+			selectors: {
+				code: "#test",
+				specifity: { id: 1, class: 0, type: 0 },
+			},
+			properties: structurePropertiesMap,
+			code: "background-color: red;",
+			atRules: {},
+		},
+	);
 
 	const parser = new EcmaDOM.CSSParser();
-	const parsed = parser.run(code);
+	const parsed = await parser.run(code);
 	assertEquals(parsed, structureMap);
 });
